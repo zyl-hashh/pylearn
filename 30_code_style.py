@@ -245,16 +245,17 @@ print("""
 """)
 
 dirty = '''
-import math,os,sys
+import math
 def f(x):
-    if x>0:return math.log10(x)
-    else:return -1
+    """计算对数"""
+    if x>0:
+        return math.log10(x)
+    else:
+        return -1
 data=[33.76,34.85,36.84]
-r=[]
-for d in data:
-    v=f(d)
-    r.append(v)
-print(r)
+results=[]
+results=[f(d) for d in data]
+print(results)
 '''
 
 print(dirty)
@@ -295,6 +296,15 @@ print("""
 print("=" * 50 + "\n")
 
 # ↓↓↓ 你的代码 ↓↓↓
+from pathlib import Path
+py_dir=Path.home() /'Desktop'/'vscode'/'python'
+results=[]
+for f in py_dir.glob("*.py"):
+    lines = len(f.read_text(encoding="utf-8").splitlines())
+    results.append({"name": f.name, "lines": lines})
+results=sorted(results,key=lambda x:x['lines'],reverse=True)
+for r in results:
+    print(r)
 
 
 
